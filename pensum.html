@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Malla Interactiva Ingeniería de Software UNICARIBE - 12 Cuatrimestres</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fdf6e3; /* beige muy claro */
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+      color: #5d4037; /* marrón oscuro */
+    }
+    h1 {
+      text-align: center;
+      color: #6d4c41; /* marrón medio */
+      margin-bottom: 30px;
+    }
+    .materia {
+      background: #fff8e1; /* crema */
+      border-left: 8px solid #d7ccc8; /* marrón claro */
+      padding: 12px 20px;
+      margin: 8px 0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, border-color 0.3s;
+      user-select: none;
+      box-shadow: 1px 1px 4px rgba(109, 76, 65, 0.2);
+    }
+    .materia:hover {
+      background-color: #ffe0b2; /* naranja pastel */
+      border-color: #bcaaa4; /* marrón más oscuro */
+    }
+    .oculto {
+      display: none;
+    }
+    .cuatrimestre-title {
+      margin-top: 40px;
+      color: #a1887f; /* marrón grisáceo */
+      border-bottom: 2px solid #d7ccc8;
+      padding-bottom: 6px;
+      font-size: 1.4em;
+      font-weight: 600;
+    }
+    /* Para materia marcada como aprobada */
+    .materia.aprobada {
+      background-color: #c5e1a5; /* verde pastel claro */
+      border-color: #7cb342; /* verde */
+      color: #33691e;
+      cursor: default;
+      box-shadow: none;
+    }
+    .materia.aprobada:hover {
+      background-color: #aed581;
+      border-color: #689f38;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Malla Curricular Interactiva - Ingeniería de Software UNICARIBE (12 Cuatrimestres)</h1>
+
+<div id="malla">
+
+  <!-- Cuatrimestres 1 a 12 -->
+
+  <!-- Cuatrimestre 1 -->
+  <div class="cuatrimestre-title">Cuatrimestre 1</div>
+  <div class="materia" data-id="FGC-101" onclick="toggleMateria('FGC-101')">FGC-101 - Orientación Académica Institucional (2 cr)</div>
+  <div class="materia" data-id="FGC-102" onclick="toggleMateria('FGC-102')">FGC-102 - Método del Trabajo Académico (2 cr)</div>
+
+  <div class="materia oculto" data-id="FGC-103" data-prerrequisito="FGC-101" onclick="toggleMateria('FGC-103')">FGC-103 - Metodología de la Investigación (3 cr)</div>
+  <div class="materia oculto" data-id="ADE-101" data-prerrequisito="FGC-102" onclick="toggleMateria('ADE-101')">ADE-101 - Administración I (3 cr)</div>
+
+  <!-- Cuatrimestre 2 -->
+  <div class="cuatrimestre-title">Cuatrimestre 2</div>
+  <div class="materia oculto" data-id="FGC-104" data-prerrequisito="FGC-103" onclick="toggleMateria('FGC-104')">FGC-104 - Lengua Española I (3 cr)</div>
+  <div class="materia oculto" data-id="FGC-105" data-prerrequisito="FGC-103" onclick="toggleMateria('FGC-105')">FGC-105 - Matemática Básica I (3 cr)</div>
+  <div class="materia oculto" data-id="FGC-106" data-prerrequisito="ADE-101" onclick="toggleMateria('FGC-106')">FGC-106 - TIC I (3 cr)</div>
+  <div class="materia oculto" data-id="ING-101" data-prerrequisito="ADE-101" onclick="toggleMateria('ING-101')">ING-101 - Introducción a la Ingeniería (3 cr)</div>
+
+  <!-- Cuatrimestre 3 -->
+  <div class="cuatrimestre-title">Cuatrimestre 3</div>
+  <div class="materia oculto" data-id="FGC-107" data-prerrequisito="FGC-104" onclick="toggleMateria('FGC-107')">FGC-107 - Historia Social Dominicana (3 cr)</div>
+  <div class="materia oculto" data-id="FGC-108" data-prerrequisito="FGC-104" onclick="toggleMateria('FGC-108')">FGC-108 - Inglés I (3 cr)</div>
+  <div class="materia oculto" data-id="DMF-209" data-prerrequisito="FGC-105" onclick="toggleMateria('DMF-209')">DMF-209 - Física I (4 cr)</div>
+  <div class="materia oculto" data-id="INF-221" data-prerrequisito="FGC-106" onclick="toggleMateria('INF-221')">INF-221 - Introducción a la Programación (3 cr)</div>
+  <div class="materia oculto" data-id="MTI-200" data-prerrequisito="FGC-105" onclick="toggleMateria('MTI-200')">MTI-200 - Matemática II (4 cr)</div>
+
+  <!-- Cuatrimestre 4 -->
+  <div class="cuatrimestre-title">Cuatrimestre 4</div>
+  <div class="materia oculto" data-id="FGC-109" data-prerrequisito="FGC-107" onclick="toggleMateria('FGC-109')">FGC-109 - Filosofía (2 cr)</div>
+  <div class="materia oculto" data-id="FGC-110" data-prerrequisito="FGC-107" onclick="toggleMateria('FGC-110')">FGC-110 - Desarrollo Sostenible y Gestión de Riesgos (2 cr)</div>
+  <div class="materia oculto" data-id="MTI-300" data-prerrequisito="MTI-200" onclick="toggleMateria('MTI-300')">MTI-300 - Matemática III (4 cr)</div>
+  <div class="materia oculto" data-id="DMF-210" data-prerrequisito="DMF-209" onclick="toggleMateria('DMF-210')">DMF-210 - Física II (4 cr)</div>
+
+  <!-- Cuatrimestre 5 -->
+  <div class="cuatrimestre-title">Cuatrimestre 5</div>
+  <div class="materia oculto" data-id="INF-310" data-prerrequisito="INF-221" onclick="toggleMateria('INF-310')">INF-310 - Programación Orientada a Objetos (4 cr)</div>
+  <div class="materia oculto" data-id="INF-311" data-prerrequisito="MTI-300" onclick="toggleMateria('INF-311')">INF-311 - Estructura de Datos (4 cr)</div>
+  <div class="materia oculto" data-id="FGC-201" data-prerrequisito="FGC-109" onclick="toggleMateria('FGC-201')">FGC-201 - Ética y Deontología Profesional (2 cr)</div>
+  <div class="materia oculto" data-id="FGC-202" data-prerrequisito="FGC-110" onclick="toggleMateria('FGC-202')">FGC-202 - Derecho y Legislación (2 cr)</div>
+
+  <!-- Cuatrimestre 6 -->
+  <div class="cuatrimestre-title">Cuatrimestre 6</div>
+  <div class="materia oculto" data-id="INF-410" data-prerrequisito="INF-310" onclick="toggleMateria('INF-410')">INF-410 - Ingeniería de Software I (4 cr)</div>
+  <div class="materia oculto" data-id="INF-411" data-prerrequisito="INF-311" onclick="toggleMateria('INF-411')">INF-411 - Bases de Datos (4 cr)</div>
+  <div class="materia oculto" data-id="MTI-400" data-prerrequisito="MTI-300" onclick="toggleMateria('MTI-400')">MTI-400 - Matemática IV (4 cr)</div>
+  <div class="materia oculto" data-id="DMF-311" data-prerrequisito="DMF-210" onclick="toggleMateria('DMF-311')">DMF-311 - Estadística (3 cr)</div>
+
+  <!-- Cuatrimestre 7 -->
+  <div class="cuatrimestre-title">Cuatrimestre 7</div>
+  <div class="materia oculto" data-id="INF-510" data-prerrequisito="INF-410" onclick="toggleMateria('INF-510')">INF-510 - Ingeniería de Software II (4 cr)</div>
+  <div class="materia oculto" data-id="INF-511" data-prerrequisito="INF-411" onclick="toggleMateria('INF-511')">INF-511 - Redes de Computadoras (4 cr)</div>
+  <div class="materia oculto" data-id="INF-512" data-prerrequisito="MTI-400" onclick="toggleMateria('INF-512')">INF-512 - Sistemas Operativos (4 cr)</div>
+  <div class="materia oculto" data-id="FGC-301" data-prerrequisito="FGC-201" onclick="toggleMateria('FGC-301')">FGC-301 - Taller de Comunicación Oral y Escrita (2 cr)</div>
+
+  <!-- Cuatrimestre 8 -->
+  <div class="cuatrimestre-title">Cuatrimestre 8</div>
+  <div class="materia oculto" data-id="INF-610" data-prerrequisito="INF-510" onclick="toggleMateria('INF-610')">INF-610 - Taller de Proyecto de Grado I (4 cr)</div>
+  <div class="materia oculto" data-id="INF-611" data-prerrequisito="INF-511" onclick="toggleMateria('INF-611')">INF-611 - Seguridad Informática (4 cr)</div>
+  <div class="materia oculto" data-id="INF-612" data-prerrequisito="INF-512" onclick="toggleMateria('INF-612')">INF-612 - Computación en la Nube (4 cr)</div>
+  <div class="materia oculto" data-id="FGC-302" data-prerrequisito="FGC-301" onclick="toggleMateria('FGC-302')">FGC-302 - Seminario de Investigación (2 cr)</div>
+
+  <!-- Cuatrimestre 9 -->
+  <div class="cuatrimestre-title">Cuatrimestre 9</div>
+  <div class="materia oculto" data-id="INF-710" data-prerrequisito="INF-610" onclick="toggleMateria('INF-710')">INF-710 - Taller de Proyecto de Grado II (4 cr)</div>
+  <div class="materia oculto" data-id="INF-711" data-prerrequisito="INF-611" onclick="toggleMateria('INF-711')">INF-711 - Inteligencia Artificial (4 cr)</div>
+  <div class="materia oculto" data-id="INF-712" data-prerrequisito="INF-612" onclick="toggleMateria('INF-712')">INF-712 - Big Data y Analítica (4 cr)</div>
+
+  <!-- Cuatrimestre 10 -->
+  <div class="cuatrimestre-title">Cuatrimestre 10</div>
+  <div class="materia oculto" data-id="INF-810" data-prerrequisito="INF-710" onclick="toggleMateria('INF-810')">INF-810 - Proyecto de Grado III (4 cr)</div>
+  <div class="materia oculto" data-id="INF-811" data-prerrequisito="INF-711" onclick="toggleMateria('INF-811')">INF-811 - Sistemas Inteligentes (4 cr)</div>
+  <div class="materia oculto" data-id="INF-812" data-prerrequisito="INF-712" onclick="toggleMateria('INF-812')">INF-812 - Computación Paralela y Distribuida (4 cr)</div>
+
+  <!-- Cuatrimestre 11 -->
+  <div class="cuatrimestre-title">Cuatrimestre 11</div>
+  <div class="materia oculto" data-id="INF-910" data-prerrequisito="INF-810" onclick="toggleMateria('INF-910')">INF-910 - Seminario de Investigación Avanzada (4 cr)</div>
+  <div class="materia oculto" data-id="INF-911" data-prerrequisito="INF-811" onclick="toggleMateria('INF-911')">INF-911 - Gestión de Proyectos (4 cr)</div>
+
+  <!-- Cuatrimestre 12 -->
+  <div class="cuatrimestre-title">Cuatrimestre 12</div>
+  <div class="materia oculto" data-id="INF-1010" data-prerrequisito="INF-910" onclick="toggleMateria('INF-1010')">INF-1010 - Práctica Profesional (6 cr)</div>
+
+</div>
+
+<div style="margin-top:40px; font-weight:bold; color:#6d4c41;">
+  Créditos acumulados: <span id="creditos">0</span>
+</div>
+
+<script>
+  const dependencias = {
+    'FGC-101': ['FGC-103'],
+    'FGC-102': ['ADE-101'],
+    'FGC-103': ['FGC-104', 'FGC-105'],
+    'ADE-101': ['FGC-106', 'ING-101'],
+    'FGC-104': ['FGC-107', 'FGC-108'],
+    'FGC-105': ['DMF-209', 'MTI-200'],
+    'FGC-106': ['INF-221'],
+    'FGC-107': ['FGC-109', 'FGC-110'],
+    'DMF-209': ['DMF-210'],
+    'MTI-200': ['MTI-300'],
+    'INF-221': ['INF-310'],
+    'MTI-300': ['INF-311', 'MTI-400'],
+    'FGC-109': ['FGC-201'],
+    'FGC-110': ['FGC-202'],
+    'INF-310': ['INF-410'],
+    'INF-311': ['INF-411'],
+    'DMF-210': ['DMF-311'],
+    'MTI-400': ['INF-512'],
+    'INF-410': ['INF-510'],
+    'INF-411': ['INF-511'],
+    'FGC-201': ['FGC-301'],
+    'INF-510': ['INF-610'],
+    'INF-511': ['INF-611'],
+    'INF-512': ['INF-612'],
+    'FGC-301': ['FGC-302'],
+    'INF-610': ['INF-710'],
+    'INF-611': ['INF-711'],
+    'INF-612': ['INF-712'],
+    'INF-710': ['INF-810'],
+    'INF-711': ['INF-811'],
+    'INF-712': ['INF-812'],
+    'INF-810': ['INF-910'],
+    'INF-811': ['INF-911'],
+    'INF-910': ['INF-1010']
+  };
+
+  // Créditos por materia para acumular
+  const creditosMateria = {
+    'FGC-101': 2, 'FGC-102': 2, 'FGC-103': 3, 'ADE-101': 3,
+    'FGC-104': 3, 'FGC-105': 3, 'FGC-106': 3, 'ING-101': 3,
+    'FGC-107': 3, 'FGC-108': 3, 'DMF-209': 4, 'INF-221': 3, 'MTI-200': 4,
+    'FGC-109': 2, 'FGC-110': 2, 'MTI-300': 4, 'DMF-210': 4,
+    'INF-310': 4, 'INF-311': 4, 'FGC-201': 2, 'FGC-202': 2,
+    'INF-410': 4, 'INF-411': 4, 'MTI-400': 4, 'DMF-311': 3,
+    'INF-510': 4, 'INF-511': 4, 'INF-512': 4, 'FGC-301': 2,
+    'INF-610': 4, 'INF-611': 4, 'INF-612': 4, 'FGC-302': 2,
+    'INF-710': 4, 'INF-711': 4, 'INF-712': 4,
+    'INF-810': 4, 'INF-811': 4, 'INF-812': 4,
+    'INF-910': 4, 'INF-911': 4,
+    'INF-1010': 6
+  };
+
+  let creditosAcumulados = 0;
+  const credit
