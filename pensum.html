@@ -170,94 +170,86 @@
   }
 
   // Guarda el progreso en localStorage
-  function guardarProgreso(state) {
-    localStorage.setItem('mallaEstado', JSON.stringify(state));
-  }
+function guardarProgreso(state) {
+  localStorage.setItem('mallaEstado', JSON.stringify(state));
+}
 
-  // Carga el progreso guardado
-  function cargarProgreso() {
-    const data = localStorage.getItem('mallaEstado');
-    return data ? JSON.parse(data) : {};
-  }
+// Carga el progreso guardado
+function cargarProgreso() {
+  const data = localStorage.getItem('mallaEstado');
+  return data ? JSON.parse(data) : {};
+}
 
-  // Actualiza el contador de créditos y muestra materias desbloqueadas según prerrequisitos
-  function actualizarEstado() {
-    const materias = document.querySelectorAll('.materia');
-    const estado = cargarEstado();
-    let creditos = 0;
+// Actualiza el contador de créditos y muestra materias desbloqueadas según prerrequisitos
+function actualizarEstado() {
+  const materias = document.querySelectorAll('.materia');
+  const estado = cargarProgreso();
+  let creditos = 0;
 
-    materias.forEach(m => {
-      const id = m.dataset.id;
-      const aprobado = estado[id];
-      if (aprobado) {
-        m.classList.add('aprobada');
+  materias.forEach(m => {
+    const id = m.dataset.id;
+    const aprobado = estado[id];
+    if (aprobado) {
+      m.classList.add('aprobada');
+    } else {
+      m.classList.remove('aprobada');
+    }
+  });
+
+  materias.forEach(m => {
+    if (m.classList.contains('aprobada')) {
+      creditos += obtenerCreditos(m.textContent);
+    }
+  });
+
+  document.getElementById('creditos').textContent = `Créditos acumulados: ${creditos}`;
+
+  materias.forEach(m => {
+    if (!m.classList.contains('aprobada')) {
+      const prereq = m.dataset.prerrequisito;
+      if (!prereq) {
+        m.classList.remove('oculto');
       } else {
-        m.classList.remove('aprobada');
-      }
-    });
-
-    // Suma créditos de materias aprobadas
-    materias.forEach(m => {
-      if (m.classList.contains('aprobada')) {
-        creditos += obtenerCreditos(m.textContent);
-      }
-    });
-
-    // Actualiza el texto de créditos acumulados
-    document.getElementById('creditos').textContent = `Créditos acumulados: ${creditos}`;
-
-    // Desbloquear materias según prerrequisitos
-    materias.forEach(m => {
-      if (!m.classList.contains('aprobada')) {
-        const prereq = m.dataset.prerrequisito;
-        if (!prereq) {
-          // Sin prerrequisitos: mostrar siempre
+        const prereqs = prereq.split(',').map(s => s.trim());
+        const desbloqueado = prereqs.every(pr => estado[pr]);
+        if (desbloqueado) {
           m.classList.remove('oculto');
         } else {
-          // Si tiene prerrequisitos (pueden ser uno o varios separados por comas)
-          const prereqs = prereq.split(',').map(s => s.trim());
-          // Si todos los prerrequisitos están aprobados, mostrar, sino ocultar
-          const desbloqueado = prereqs.every(pr => estado[pr]);
-          if (desbloqueado) {
-            m.classList.remove('oculto');
-          } else {
-            m.classList.add('oculto');
-          }
+          m.classList.add('oculto');
         }
       }
-    });
-  }
-
-  // Maneja click para marcar/desmarcar como aprobada
-  function toggleMateria(id) {
-    const materias = document.querySelectorAll('.materia');
-    const estado = cargarEstado();
-
-    const materia = [...materias].find(m => m.dataset.id === id);
-    if (!materia) return;
-
-    // Si está aprobada, quitar aprobación; si no, marcar aprobada
-    if (materia.classList.contains('aprobada')) {
-      materia.classList.remove('aprobada');
-      estado[id] = false;
-    } else {
-      // Antes de aprobar, verificar que prerrequisitos estén aprobados
-      const prereq = materia.dataset.prerrequisito;
-      if (prereq) {
-        const prereqs = prereq.split(',').map(s => s.trim());
-        const todosCumplidos = prereqs.every(pr => estado[pr]);
-        if (!todosCumplidos) {
-          alert('No puedes aprobar esta materia antes de cumplir sus prerrequisitos.');
-          return;
-        }
-      }
-      materia.classList.add('aprobada');
-      estado[id] = true;
     }
+  });
+}
 
-    guardarEstado(estado);
-    actualizarEstado();
+// Maneja click para marcar/desmarcar como aprobada
+function toggleMateria(id) {
+  const materias = document.querySelectorAll('.materia');
+  const estado = cargarProgreso();
+
+  const materia = [...materias].find(m => m.dataset.id === id);
+  if (!materia) return;
+
+  if (materia.classList.contains('aprobada')) {
+    materia.classList.remove('aprobada');
+    estado[id] = false;
+  } else {
+    const prereq = materia.dataset.prerrequisito;
+    if (prereq) {
+      const prereqs = prereq.split(',').map(s => s.trim());
+      const todosCumplidos = prereqs.every(pr => estado[pr]);
+      if (!todosCumplidos) {
+        alert('No puedes aprobar esta materia antes de cumplir sus prerrequisitos.');
+        return;
+      }
+    }
+    materia.classList.add('aprobada');
+    estado[id] = true;
   }
+
+  guardarProgreso(estado);
+  actualizarEstado();
+}
 
   // Al cargar la página, actualizar estado
   document.addEventListener('DOMContentLoaded', () => {
@@ -266,4 +258,4 @@
 </script>
 
 </body>
-</html>
+</html>l>
