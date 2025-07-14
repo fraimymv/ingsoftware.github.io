@@ -156,7 +156,7 @@
   <div class="cuatrimestre-title">Cuatrimestre 12</div>
   <div class="materia oculto" data-id="ISW-323" data-prerrequisito="ISW-322" onclick="toggleMateria('ISW-323')">ISW-323 - TALLER DE BASE DE DATOS III (4 cr)</div>
   <div class="materia oculto" data-id="ISW-400" data-prerrequisito="ISW-303" onclick="toggleMateria('ISW-400')">ISW-400 - INTELIGENCIA ARTIFICIAL (4 cr)</div>
-  <div class="materia oculto" data-id="ISW-600" data-prerrequisito="" onclick="toggleMateria('ISW-600')">ISW-600 - PROYECTO INTEGRADOR DE SOFTWARE: TRABAJO DE GRADO (6 cr)</div>
+  <div class="materia oculto" data-id="ISW-600" data-prerrequisito="FGC-101, FGC-102, FGC-103, ADE-101, FGC-104, FGC-106, ING-101, FGC-107, FGC-108, DMF-209, MTI-200, INF-221, FGC-109, FGC-110, MTI-300, DMF-210, MAT-241, QUI-400, INF-215, ING-103, MAT-242, ING-105, ING-104, INF-222, ING-102, TIC-408, ISW-301, INF-437, ISW-311, ISW-221, TIC-402, ISW-404, ISW-321, ISW-302, ISW-312, ISW-314, ISW-322, ISW-324, ISW-313, ISW-303, ISW-405, ISW-401, ISW-403, ISW-304, ISW-305, ISW-402, FGC-111, ISW-323, ISW-400" onclick="toggleMateria('ISW-600')">ISW-600 - PROYECTO INTEGRADOR DE SOFTWARE: TRABAJO DE GRADO (6 cr)</div>
 
 </div>
 
@@ -169,18 +169,18 @@
     return m ? parseInt(m[1], 10) : 0;
   }
 
-  // Guarda el progreso en localStorage
+  // Guardar progreso
 function guardarProgreso(state) {
   localStorage.setItem('mallaEstado', JSON.stringify(state));
 }
 
-// Carga el progreso guardado
+// Cargar progreso guardado
 function cargarProgreso() {
   const data = localStorage.getItem('mallaEstado');
   return data ? JSON.parse(data) : {};
 }
 
-// Actualiza el contador de créditos y muestra materias desbloqueadas según prerrequisitos
+// Actualiza conteo de créditos y mostrar materias desbloqueadas según prerrequisitos
 function actualizarEstado() {
   const materias = document.querySelectorAll('.materia');
   const estado = cargarProgreso();
@@ -222,7 +222,7 @@ function actualizarEstado() {
   });
 }
 
-// Maneja click para marcar/desmarcar como aprobada
+// Click marca/desmarca aprobada
 function toggleMateria(id) {
   const materias = document.querySelectorAll('.materia');
   const estado = cargarProgreso();
