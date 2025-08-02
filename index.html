@@ -58,7 +58,7 @@
     border-color: #0a000296;
     color: #fff;
     cursor: default;
-    box-shadow: 000;
+    box-shadow: none;
     font-weight: 700;
     text-decoration: line-through;
   }
@@ -82,7 +82,6 @@
 
 <div id="malla">
 
-  <!-- Cuatrimestres y materias -->
   <div class="cuatrimestre-title">Cuatrimestre 1</div>
   <div class="materia" data-id="FGC-101" onclick="toggleMateria('FGC-101')">FGC-101 - ORIENTACIÓN ACADÉMICA INSTITUCIONAL (2 cr)</div>
   <div class="materia" data-id="FGC-102" onclick="toggleMateria('FGC-102')">FGC-102 - MÉTODO DEL TRABAJO ACADÉMICO (2 cr)</div>
@@ -163,99 +162,129 @@
 <div id="creditos">Créditos acumulados: 0</div>
 
 <script>
-  // Parsea créditos de string como (X cr)
   function obtenerCreditos(texto) {
     const m = texto.match(/\((\d+)\s*cr\)/);
     return m ? parseInt(m[1], 10) : 0;
   }
 
-  // Guardar progreso
-function guardarProgreso(state) {
-  localStorage.setItem('mallaEstado', JSON.stringify(state));
-}
-
-// Cargar progreso guardado
-function cargarProgreso() {
-  const data = localStorage.getItem('mallaEstado');
-  return data ? JSON.parse(data) : {};
-}
-
-// Actualiza conteo de créditos y mostrar materias desbloqueadas según prerrequisitos
-function actualizarEstado() {
-  const materias = document.querySelectorAll('.materia');
-  const estado = cargarProgreso();
-  let creditos = 0;
-
-  materias.forEach(m => {
-    const id = m.dataset.id;
-    const aprobado = estado[id];
-    if (aprobado) {
-      m.classList.add('aprobada');
-    } else {
-      m.classList.remove('aprobada');
-    }
-  });
-
-  materias.forEach(m => {
-    if (m.classList.contains('aprobada')) {
-      creditos += obtenerCreditos(m.textContent);
-    }
-  });
-
-  document.getElementById('creditos').textContent = `Créditos acumulados: ${creditos}`;
-
-  materias.forEach(m => {
-    if (!m.classList.contains('aprobada')) {
-      const prereq = m.dataset.prerrequisito;
-      if (!prereq) {
-        m.classList.remove('oculto');
-      } else {
-        const prereqs = prereq.split(',').map(s => s.trim());
-        const desbloqueado = prereqs.every(pr => estado[pr]);
-        if (desbloqueado) {
-          m.classList.remove('oculto');
-        } else {
-          m.classList.add('oculto');
-        }
-      }
-    }
-  });
-}
-
-// Click marca/desmarca aprobada
-function toggleMateria(id) {
-  const materias = document.querySelectorAll('.materia');
-  const estado = cargarProgreso();
-
-  const materia = [...materias].find(m => m.dataset.id === id);
-  if (!materia) return;
-
-  if (materia.classList.contains('aprobada')) {
-    materia.classList.remove('aprobada');
-    estado[id] = false;
-  } else {
-    const prereq = materia.dataset.prerrequisito;
-    if (prereq) {
-      const prereqs = prereq.split(',').map(s => s.trim());
-      const todosCumplidos = prereqs.every(pr => estado[pr]);
-      if (!todosCumplidos) {
-        alert('No puedes aprobar esta materia antes de cumplir sus prerrequisitos.');
-        return;
-      }
-    }
-    materia.classList.add('aprobada');
-    estado[id] = true;
+  function guardarProgreso(state) {
+    localStorage.setItem('mallaEstado', JSON.stringify(state));
   }
 
-  guardarProgreso(estado);
-  actualizarEstado();
-}
+  function cargarProgreso() {
+    const data = localStorage.getItem('mallaEstado');
+    return data ? JSON.parse(data) : {};
+  }
 
-  // Al cargar la página, actualizar estado
-  document.addEventListener('DOMContentLoaded', () => {
-    actualizarEstado();
+  function dependientesDe(id) {
+    const materias = document.querySelectorAll('.materia');
+    return [...materias].filter(m => {
+      if (!m.dataset.prerrequisito) return false;
+      const prereqs = m.dataset.prerrequisito.split(',').map(s => s.trim());
+      return prereqs.includes(id);
+    });
+  }
+
+  function desmarcarRecursivo(id, estado) {
+    const materias = document.querySelectorAll('.materia');
+    const materia = [...materias].find(m => m.dataset.id === id);
+    if (!materia) return;
+
+    materia.classList.remove('aprobada');
+    estado[id] = false;
+
+    const dependientes = dependientesDe(id);
+    dependientes.forEach(dep => {
+      if (estado[dep.dataset.id]) {
+        desmarcarRecursivo(dep.dataset.id, estado);
+      }
+      
+      dep.classList.add('oculto');
+      estado[dep.dataset.id] = false;
+    });
+  }
+
+  function actualizarVisibilidad(estado) {
+    const materias = document.querySelectorAll('.materia');
+    materias.forEach(materia => {
+      const prereq = materia.dataset.prerrequisito;
+      if (!prereq) {
+        // Sin prereqs, siempre visible
+        materia.classList.remove('oculto');
+        return;
+      }
+  
+      const prereqs = prereq.split(',').map(s => s.trim());
+      const visibles = prereqs.every(pr => estado[pr]);
+      if (visibles) {
+        materia.classList.remove('oculto');
+      } else {
+        materia.classList.add('oculto');
+        materia.classList.remove('aprobada');
+        estado[materia.dataset.id] = false;
+      }
+    });
+  }
+
+  function actualizarCreditos(estado) {
+    const materias = document.querySelectorAll('.materia');
+    let total = 0;
+    materias.forEach(materia => {
+      if (estado[materia.dataset.id]) {
+        total += obtenerCreditos(materia.textContent);
+      }
+    });
+    document.getElementById('creditos').textContent = `Créditos acumulados: ${total}`;
+  }
+
+  function toggleMateria(id) {
+    const materias = document.querySelectorAll('.materia');
+    const estado = cargarProgreso();
+
+    const materia = [...materias].find(m => m.dataset.id === id);
+    if (!materia) return;
+
+    if (materia.classList.contains('aprobada')) {
+      // Desmarcar materia y dependientes
+      desmarcarRecursivo(id, estado);
+    } else {
+      // Marcar si cumple prerequisitos
+      const prereq = materia.dataset.prerrequisito;
+      if (prereq) {
+        const prereqs = prereq.split(',').map(s => s.trim());
+        const todosCumplidos = prereqs.every(pr => estado[pr]);
+        if (!todosCumplidos) {
+          alert('No puedes aprobar esta materia antes de cumplir sus prerrequisitos.');
+          return;
+        }
+      }
+      materia.classList.add('aprobada');
+      estado[id] = true;
+    }
+
+    actualizarVisibilidad(estado);
+    actualizarCreditos(estado);
+    guardarProgreso(estado);
+  }
+
+  window.addEventListener('load', () => {
+    const estado = cargarProgreso();
+
+    const materias = document.querySelectorAll('.materia');
+    materias.forEach(materia => {
+      if (estado[materia.dataset.id]) {
+        materia.classList.add('aprobada');
+      } else {
+        materia.classList.remove('aprobada');
+      }
+    });
+
+    actualizarVisibilidad(estado);
+    actualizarCreditos(estado);
   });
 </script>
 
 </body>
 </html>
+
+
