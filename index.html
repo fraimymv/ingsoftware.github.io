@@ -3,288 +3,242 @@
 <head>
 <meta charset="UTF-8" />
 <title>Ingeniería de Software (Pensum UNICARIBE)</title>
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap');
-  body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #9a4d5f;
-    color: #9C27B0;
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 0 20px 50px;
-  }
-  h1 {
-    font-family: 'Merriweather', serif;
-    font-weight: 700;
-    font-size: 2.8rem;
-    text-align: center;
-    margin-bottom: 40px;
-    color: #fff;
-    letter-spacing: 1.2px;
-  }
-  .cuatrimestre-title {
-    font-family: 'Merriweather', serif;
-    font-weight: 600;
-    font-size: 1.8rem;
-    color: #fff;
-    border-bottom: 2px solid #fff;
-    margin-top: 50px;
-    margin-bottom: 20px;
-    padding-bottom: 8px;
-    letter-spacing: 0.8px;
-  }
-  .materia {
-    background-color: #03030342;
-    border-left: 6px solid #fff;
-    padding: 15px 25px;
-    margin-bottom: 12px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(171,142,115,0.15);
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    user-select: none;
-    font-size: 1.1rem;
-    color: #fff;
-    font-weight: 500;
-    line-height: 1.3;
-  }
-  .materia:hover:not(.aprobada) {
-    background-color: #03030342;
-    border-color: #000;
-    box-shadow: 0 6px 12px #000;
-  }
-  .materia.aprobada {
-    background-color: #000000ba;
-    border-color: #0a000296;
-    color: #fff;
-    cursor: default;
-    box-shadow: none;
-    font-weight: 700;
-    text-decoration: line-through;
-  }
-  .oculto {
-    display: none;
-  }
-  #creditos {
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
-    margin-top: 50px;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: 1px;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #9a4d5f;
+  color: #fff;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 20px 50px;
+}
+
+h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 2.8rem;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.cuatrimestre-title {
+  font-family: 'Merriweather', serif;
+  font-size: 1.8rem;
+  border-bottom: 2px solid #fff;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.materia {
+  background-color: #03030342;
+  border-left: 6px solid #fff;
+  padding: 15px 25px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.materia:hover:not(.aprobada) {
+  box-shadow: 0 6px 12px #000;
+}
+
+.materia.aprobada {
+  background-color: #000000ba;
+  border-color: #0a000296;
+  text-decoration: line-through;
+  font-weight: 700;
+  cursor: default;
+}
+
+.oculto { display: none; }
+
+#creditos {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+#resumen-materias {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 1.1rem;
+}
 </style>
 </head>
+
 <body>
 
 <h1>Ingeniería de Software<br>Pensum UNICARIBE</h1>
 
 <div id="malla">
 
-  <div class="cuatrimestre-title">Cuatrimestre 1</div>
-  <div class="materia" data-id="FGC-101" onclick="toggleMateria('FGC-101')">FGC-101 - ORIENTACIÓN ACADÉMICA INSTITUCIONAL (2 cr)</div>
-  <div class="materia" data-id="FGC-102" onclick="toggleMateria('FGC-102')">FGC-102 - MÉTODO DEL TRABAJO ACADÉMICO (2 cr)</div>
-  <div class="materia" data-id="FGC-103" onclick="toggleMateria('FGC-103')">FGC-103 - METODOLOGÍA DE LA INVESTIGACIÓN (3 cr)</div>
-  <div class="materia" data-id="ADE-101" onclick="toggleMateria('ADE-101')">ADE-101 - ADMINISTRACION I (3 cr)</div>
+<!-- CUATRIMESTRE 1 -->
+<div class="cuatrimestre-title">Cuatrimestre 1</div>
+<div class="materia" data-id="FGC-101" onclick="toggleMateria('FGC-101')">FGC-101 - ORIENTACIÓN ACADÉMICA INSTITUCIONAL (2 cr)</div>
+<div class="materia" data-id="FGC-102" onclick="toggleMateria('FGC-102')">FGC-102 - MÉTODO DEL TRABAJO ACADÉMICO (2 cr)</div>
+<div class="materia" data-id="FGC-103" onclick="toggleMateria('FGC-103')">FGC-103 - METODOLOGÍA DE LA INVESTIGACIÓN (3 cr)</div>
+<div class="materia" data-id="ADE-101" onclick="toggleMateria('ADE-101')">ADE-101 - ADMINISTRACION I (3 cr)</div>
 
-  <div class="cuatrimestre-title">Cuatrimestre 2</div>
-  <div class="materia oculto" data-id="FGC-104" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-104')">FGC-104 - LENGUA ESPAÑOLA I (3 cr)</div>
-  <div class="materia oculto" data-id="FGC-105" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-105')">FGC-105 - MATEMÁTICA BÁSICA I (3 cr)</div>
-  <div class="materia oculto" data-id="FGC-106" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-106')">FGC-106 - TECNOLOGÍA DE LA INFORMACIÓN Y COMUNICACIÓN I (3 cr)</div>
-  <div class="materia" data-id="ING-101" onclick="toggleMateria('ING-101')">ING-101 - INTRODUCCIÓN A LA INGENIERÍA (3 cr)</div>
+<!-- CUATRIMESTRE 2 -->
+<div class="cuatrimestre-title">Cuatrimestre 2</div>
+<div class="materia oculto" data-id="FGC-104" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-104')">FGC-104 - LENGUA ESPAÑOLA I (3 cr)</div>
+<div class="materia oculto" data-id="FGC-105" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-105')">FGC-105 - MATEMÁTICA BÁSICA I (3 cr)</div>
+<div class="materia oculto" data-id="FGC-106" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-106')">FGC-106 - TECNOLOGÍA DE LA INFORMACIÓN Y COMUNICACIÓN I (3 cr)</div>
+<div class="materia" data-id="ING-101" onclick="toggleMateria('ING-101')">ING-101 - INTRODUCCIÓN A LA INGENIERÍA (3 cr)</div>
 
-  <div class="cuatrimestre-title">Cuatrimestre 3</div>
-  <div class="materia oculto" data-id="FGC-107" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-107')">FGC-107 - HISTORIA SOCIAL DOMINICANA (3 cr)</div>
-  <div class="materia oculto" data-id="FGC-108" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-108')">FGC-108 - INGLÉS I (3 cr)</div>
-  <div class="materia oculto" data-id="DMF-209" data-prerrequisito="FGC-105" onclick="toggleMateria('DMF-209')">DMF-209 - FISICA I (4 cr)</div>
-  <div class="materia oculto" data-id="INF-221" data-prerrequisito="FGC-106" onclick="toggleMateria('INF-221')">INF-221 - INTRODUCCIÓN A LA PROGRAMACIÓN (3 cr)</div>
-  <div class="materia oculto" data-id="MTI-200" data-prerrequisito="FGC-105" onclick="toggleMateria('MTI-200')">MTI-200 - MATEMÁTICA II (4 cr)</div>
+<!-- CUATRIMESTRE 3 -->
+<div class="cuatrimestre-title">Cuatrimestre 3</div>
+<div class="materia oculto" data-id="FGC-107" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-107')">FGC-107 - HISTORIA SOCIAL DOMINICANA (3 cr)</div>
+<div class="materia oculto" data-id="FGC-108" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-108')">FGC-108 - INGLÉS I (3 cr)</div>
+<div class="materia oculto" data-id="DMF-209" data-prerrequisito="FGC-105" onclick="toggleMateria('DMF-209')">DMF-209 - FISICA I (4 cr)</div>
+<div class="materia oculto" data-id="INF-221" data-prerrequisito="FGC-106" onclick="toggleMateria('INF-221')">INF-221 - INTRODUCCIÓN A LA PROGRAMACIÓN (3 cr)</div>
+<div class="materia oculto" data-id="MTI-200" data-prerrequisito="FGC-105" onclick="toggleMateria('MTI-200')">MTI-200 - MATEMÁTICA II (4 cr)</div>
 
-  <div class="cuatrimestre-title">Cuatrimestre 4</div>
-  <div class="materia oculto" data-id="FGC-109" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-109')">FGC-109 - FILOSOFÍA (2 cr)</div>
-  <div class="materia oculto" data-id="FGC-110" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-110')">FGC-110 - DESARROLLO SOSTENIBLE Y GESTIÓN DE RIESGOS (2 cr)</div>
-  <div class="materia oculto" data-id="MTI-300" data-prerrequisito="MTI-200" onclick="toggleMateria('MTI-300')">MTI-300 - MATEMÁTICA III (4 cr)</div>
-  <div class="materia oculto" data-id="DMF-210" data-prerrequisito="DMF-209" onclick="toggleMateria('DMF-210')">DMF-210 - FISICA II (4 cr)</div>
+<!-- CUATRIMESTRE 4 -->
+<div class="cuatrimestre-title">Cuatrimestre 4</div>
+<div class="materia oculto" data-id="FGC-109" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-109')">FGC-109 - FILOSOFÍA (2 cr)</div>
+<div class="materia oculto" data-id="FGC-110" data-prerrequisito="FGC-102" onclick="toggleMateria('FGC-110')">FGC-110 - DESARROLLO SOSTENIBLE Y GESTIÓN DE RIESGOS (2 cr)</div>
+<div class="materia oculto" data-id="MTI-300" data-prerrequisito="MTI-200" onclick="toggleMateria('MTI-300')">MTI-300 - MATEMÁTICA III (4 cr)</div>
+<div class="materia oculto" data-id="DMF-210" data-prerrequisito="DMF-209" onclick="toggleMateria('DMF-210')">DMF-210 - FISICA II (4 cr)</div>
 
-  <div class="cuatrimestre-title">Cuatrimestre 5</div>
-  <div class="materia oculto" data-id="MAT-241" data-prerrequisito="FGC-105" onclick="toggleMateria('MAT-241')">MAT-241 - ESTADISTICA I (3 cr)</div>
-  <div class="materia oculto" data-id="QUI-400" data-prerrequisito="FGC-105" onclick="toggleMateria('QUI-400')">QUI-400 - QUÍMICA I (3 cr)</div>
-  <div class="materia oculto" data-id="INF-215" data-prerrequisito="MTI-200" onclick="toggleMateria('INF-215')">INF-215 - INGENIERÍA ECONÓMICA (3 cr)</div>
-  <div class="materia oculto" data-id="ING-103" data-prerrequisito="MTI-300" onclick="toggleMateria('ING-103')">ING-103 - CALCULO INTEGRAL (4 cr)</div>
+<!-- CUATRIMESTRE 5 -->
+<div class="cuatrimestre-title">Cuatrimestre 5</div>
+<div class="materia oculto" data-id="MAT-241" data-prerrequisito="FGC-105" onclick="toggleMateria('MAT-241')">MAT-241 - ESTADISTICA I (3 cr)</div>
+<div class="materia oculto" data-id="QUI-400" data-prerrequisito="FGC-105" onclick="toggleMateria('QUI-400')">QUI-400 - QUÍMICA I (3 cr)</div>
+<div class="materia oculto" data-id="INF-215" data-prerrequisito="MTI-200" onclick="toggleMateria('INF-215')">INF-215 - INGENIERÍA ECONÓMICA (3 cr)</div>
+<div class="materia oculto" data-id="ING-103" data-prerrequisito="MTI-300" onclick="toggleMateria('ING-103')">ING-103 - CALCULO INTEGRAL (4 cr)</div>
 
-  <div class="cuatrimestre-title">Cuatrimestre 6</div>
-  <div class="materia oculto" data-id="MAT-242" data-prerrequisito="MAT-241" onclick="toggleMateria('MAT-242')">MAT-242 - ESTADISTICA II (3 cr)</div>
-  <div class="materia oculto" data-id="ING-105" data-prerrequisito="FGC-106" onclick="toggleMateria('ING-105')">ING-105 - TALLER DE MECÁNICA DE HARDWARE (3 cr)</div>
-  <div class="materia oculto" data-id="ING-104" data-prerrequisito="ING-103" onclick="toggleMateria('ING-104')">ING-104 - CÁLCULO VECTORIAL (4 cr)</div>
-  <div class="materia oculto" data-id="INF-222" data-prerrequisito="FGC-106" onclick="toggleMateria('INF-222')">INF-222 - SISTEMA OPERATIVO I (3 cr)</div>
-  <div class="materia oculto" data-id="ING-102" data-prerrequisito="QUI-400" onclick="toggleMateria('ING-102')">ING-102 - CIENCIA E INGENIERÍA DE MATERIALES (4 cr)</div>
+<!-- CUATRIMESTRE 6 -->
+<div class="cuatrimestre-title">Cuatrimestre 6</div>
+<div class="materia oculto" data-id="MAT-242" data-prerrequisito="MAT-241" onclick="toggleMateria('MAT-242')">MAT-242 - ESTADISTICA II (3 cr)</div>
+<div class="materia oculto" data-id="ING-105" data-prerrequisito="FGC-106" onclick="toggleMateria('ING-105')">ING-105 - TALLER DE MECÁNICA DE HARDWARE (3 cr)</div>
+<div class="materia oculto" data-id="ING-104" data-prerrequisito="ING-103" onclick="toggleMateria('ING-104')">ING-104 - CÁLCULO VECTORIAL (4 cr)</div>
+<div class="materia oculto" data-id="INF-222" data-prerrequisito="FGC-106" onclick="toggleMateria('INF-222')">INF-222 - SISTEMA OPERATIVO I (3 cr)</div>
+<div class="materia oculto" data-id="ING-102" data-prerrequisito="QUI-400" onclick="toggleMateria('ING-102')">ING-102 - CIENCIA E INGENIERÍA DE MATERIALES (4 cr)</div>
 
-  <div class="cuatrimestre-title">Cuatrimestre 7</div>
-  <div class="materia oculto" data-id="TIC-408" data-prerrequisito="FGC-106" onclick="toggleMateria('TIC-408')">TIC-408 - SEGURIDAD DE LA INFORMACIÓN (3 cr)</div>
-  <div class="materia oculto" data-id="ISW-301" data-prerrequisito="INF-221" onclick="toggleMateria('ISW-301')">ISW-301 - TALLER DE PROGRAMACIÓN I (5 cr)</div>
-  <div class="materia oculto" data-id="INF-437" data-prerrequisito="INF-222" onclick="toggleMateria('INF-437')">INF-437 - REDES INFORMATICAS (3 cr)</div>
-  <div class="materia oculto" data-id="ISW-311" data-prerrequisito="INF-221" onclick="toggleMateria('ISW-311')">ISW-311 - ANÁLISIS Y DISEÑO DE SISTEMAS (4 cr)</div>
+<!-- CUATRIMESTRE 7 -->
+<div class="cuatrimestre-title">Cuatrimestre 7</div>
+<div class="materia oculto" data-id="TIC-408" data-prerrequisito="FGC-106" onclick="toggleMateria('TIC-408')">TIC-408 - SEGURIDAD DE LA INFORMACIÓN (3 cr)</div>
+<div class="materia oculto" data-id="ISW-301" data-prerrequisito="INF-221" onclick="toggleMateria('ISW-301')">ISW-301 - TALLER DE PROGRAMACIÓN I (5 cr)</div>
+<div class="materia oculto" data-id="INF-437" data-prerrequisito="INF-222" onclick="toggleMateria('INF-437')">INF-437 - REDES INFORMATICAS (3 cr)</div>
+<div class="materia oculto" data-id="ISW-311" data-prerrequisito="INF-221" onclick="toggleMateria('ISW-311')">ISW-311 - ANÁLISIS Y DISEÑO DE SISTEMAS (4 cr)</div>
 
-  <div class="cuatrimestre-title">Cuatrimestre 8</div>
-  <div class="materia oculto" data-id="ISW-221" data-prerrequisito="ISW-301" onclick="toggleMateria('ISW-221')">ISW-221 - ESTRUCTURA DE DATOS (4 cr)</div>
-  <div class="materia oculto" data-id="TIC-402" data-prerrequisito="FGC-110" onclick="toggleMateria('TIC-402')">TIC-402 - ETICA EN TECNOLOGÍA (2 cr)</div>
-  <div class="materia oculto" data-id="ISW-404" data-prerrequisito="ISW-321" onclick="toggleMateria('ISW-404')">ISW-404 - ELECTIVA I (3 cr)</div>
-  <div class="materia oculto" data-id="ISW-321" data-prerrequisito="ISW-311" onclick="toggleMateria('ISW-321')">ISW-321 - TALLER DE BASES DE DATOS I (4 cr)</div>
+<!-- CUATRIMESTRE 8 -->
+<div class="cuatrimestre-title">Cuatrimestre 8</div>
+<div class="materia oculto" data-id="ISW-221" data-prerrequisito="ISW-301" onclick="toggleMateria('ISW-221')">ISW-221 - ESTRUCTURA DE DATOS (4 cr)</div>
+<div class="materia oculto" data-id="TIC-402" data-prerrequisito="FGC-110" onclick="toggleMateria('TIC-402')">TIC-402 - ETICA EN TECNOLOGÍA (2 cr)</div>
+<div class="materia oculto" data-id="ISW-404" data-prerrequisito="ISW-321" onclick="toggleMateria('ISW-404')">ISW-404 - ELECTIVA I (3 cr)</div>
+<div class="materia oculto" data-id="ISW-321" data-prerrequisito="ISW-311" onclick="toggleMateria('ISW-321')">ISW-321 - TALLER DE BASES DE DATOS I (4 cr)</div>
 
-  <div class="cuatrimestre-title">Cuatrimestre 9</div>
-  <div class="materia oculto" data-id="ISW-302" data-prerrequisito="ISW-301" onclick="toggleMateria('ISW-302')">ISW-302 - TALLER DE PROGRAMACIÓN II (5 cr)</div>
-  <div class="materia oculto" data-id="ISW-312" data-prerrequisito="ISW-301" onclick="toggleMateria('ISW-312')">ISW-312 - INGENIERÍA DE SOFTWARE I (4 cr)</div>
-  <div class="materia oculto" data-id="ISW-314" data-prerrequisito="ISW-311" onclick="toggleMateria('ISW-314')">ISW-314 - INGENIERÍA DE REQUISITOS Y MODELADO (4 cr)</div>
-  <div class="materia oculto" data-id="ISW-322" data-prerrequisito="ISW-321" onclick="toggleMateria('ISW-322')">ISW-322 - TALLER DE BASES DE DATOS II (4 cr)</div>
-  <div class="materia oculto" data-id="ISW-324" data-prerrequisito="ISW-321" onclick="toggleMateria('ISW-324')">ISW-324 - SISTEMAS DE INFORMACIÓN GEOGRÁFICA (3 cr)</div>
+<!-- CUATRIMESTRE 9 -->
+<div class="cuatrimestre-title">Cuatrimestre 9</div>
+<div class="materia oculto" data-id="ISW-302" data-prerrequisito="ISW-301" onclick="toggleMateria('ISW-302')">ISW-302 - TALLER DE PROGRAMACIÓN II (5 cr)</div>
+<div class="materia oculto" data-id="ISW-312" data-prerrequisito="ISW-301" onclick="toggleMateria('ISW-312')">ISW-312 - INGENIERÍA DE SOFTWARE I (4 cr)</div>
+<div class="materia oculto" data-id="ISW-314" data-prerrequisito="ISW-311" onclick="toggleMateria('ISW-314')">ISW-314 - INGENIERÍA DE REQUISITOS Y MODELADO (4 cr)</div>
+<div class="materia oculto" data-id="ISW-322" data-prerrequisito="ISW-321" onclick="toggleMateria('ISW-322')">ISW-322 - TALLER DE BASES DE DATOS II (4 cr)</div>
+<div class="materia oculto" data-id="ISW-324" data-prerrequisito="ISW-321" onclick="toggleMateria('ISW-324')">ISW-324 - SISTEMAS DE INFORMACIÓN GEOGRÁFICA (3 cr)</div>
 
-  <div class="cuatrimestre-title">Cuatrimestre 10</div>
-  <div class="materia oculto" data-id="ISW-313" data-prerrequisito="ISW-312" onclick="toggleMateria('ISW-313')">ISW-313 - INGENIERÍA DE SOFTWARE II (4 cr)</div>
-  <div class="materia oculto" data-id="ISW-303" data-prerrequisito="ISW-302" onclick="toggleMateria('ISW-303')">ISW-303 - TALLER DE PROGRAMACIÓN III (5 cr)</div>
-  <div class="materia oculto" data-id="ISW-405" data-prerrequisito="ISW-404" onclick="toggleMateria('ISW-405')">ISW-405 - ELECTIVA II (3 cr)</div>
-  <div class="materia oculto" data-id="ISW-401" data-prerrequisito="ISW-312" onclick="toggleMateria('ISW-401')">ISW-401 - PROYECTO DE SOFTWARE I (5 cr)</div>
-  <div class="materia oculto" data-id="ISW-403" data-prerrequisito="ISW-302" onclick="toggleMateria('ISW-403')">ISW-403 - PASANTÍA - PRÁCTICA DE INGENIERÍA DE SOFTWARE (8 cr)</div>
+<!-- CUATRIMESTRE 10 -->
+<div class="cuatrimestre-title">Cuatrimestre 10</div>
+<div class="materia oculto" data-id="ISW-313" data-prerrequisito="ISW-312" onclick="toggleMateria('ISW-313')">ISW-313 - INGENIERÍA DE SOFTWARE II (4 cr)</div>
+<div class="materia oculto" data-id="ISW-303" data-prerrequisito="ISW-302" onclick="toggleMateria('ISW-303')">ISW-303 - TALLER DE PROGRAMACIÓN III (5 cr)</div>
+<div class="materia oculto" data-id="ISW-405" data-prerrequisito="ISW-404" onclick="toggleMateria('ISW-405')">ISW-405 - ELECTIVA II (3 cr)</div>
+<div class="materia oculto" data-id="ISW-401" data-prerrequisito="ISW-312" onclick="toggleMateria('ISW-401')">ISW-401 - PROYECTO DE SOFTWARE I (5 cr)</div>
+<div class="materia oculto" data-id="ISW-403" data-prerrequisito="ISW-302" onclick="toggleMateria('ISW-403')">ISW-403 - PASANTÍA - PRÁCTICA DE INGENIERÍA DE SOFTWARE (8 cr)</div>
 
-  <div class="cuatrimestre-title">Cuatrimestre 11</div>
-  <div class="materia oculto" data-id="ISW-304" data-prerrequisito="ISW-303" onclick="toggleMateria('ISW-304')">ISW-304 - TALLER DE PROGRAMACIÓN IV (5 cr)</div>
-  <div class="materia oculto" data-id="ISW-305" data-prerrequisito="ISW-302" onclick="toggleMateria('ISW-305')">ISW-305 - DISEÑO Y CONSTRUCCIÓN DE INTERFACES (4 cr)</div>
-  <div class="materia oculto" data-id="ISW-402" data-prerrequisito="ISW-401" onclick="toggleMateria('ISW-402')">ISW-402 - PROYECTO DE SOFTWARE II (5 cr)</div>
-  <div class="materia oculto" data-id="FGC-111" data-prerrequisito="FGC-103, ISW-402" onclick="toggleMateria('FGC-111')">FGC-111 - SEMINARIO DE GRADO (3 cr)</div>
+<!-- CUATRIMESTRE 11 -->
+<div class="cuatrimestre-title">Cuatrimestre 11</div>
+<div class="materia oculto" data-id="ISW-304" data-prerrequisito="ISW-303" onclick="toggleMateria('ISW-304')">ISW-304 - TALLER DE PROGRAMACIÓN IV (5 cr)</div>
+<div class="materia oculto" data-id="ISW-305" data-prerrequisito="ISW-302" onclick="toggleMateria('ISW-305')">ISW-305 - DISEÑO Y CONSTRUCCIÓN DE INTERFACES (4 cr)</div>
+<div class="materia oculto" data-id="ISW-402" data-prerrequisito="ISW-401" onclick="toggleMateria('ISW-402')">ISW-402 - PROYECTO DE SOFTWARE II (5 cr)</div>
+<div class="materia oculto" data-id="FGC-111" data-prerrequisito="FGC-103, ISW-402" onclick="toggleMateria('FGC-111')">FGC-111 - SEMINARIO DE GRADO (3 cr)</div>
 
-  <div class="cuatrimestre-title">Cuatrimestre 12</div>
-  <div class="materia oculto" data-id="ISW-323" data-prerrequisito="ISW-322" onclick="toggleMateria('ISW-323')">ISW-323 - TALLER DE BASE DE DATOS III (4 cr)</div>
-  <div class="materia oculto" data-id="ISW-400" data-prerrequisito="ISW-303" onclick="toggleMateria('ISW-400')">ISW-400 - INTELIGENCIA ARTIFICIAL (4 cr)</div>
-  <div class="materia oculto" data-id="ISW-600" data-prerrequisito="FGC-101, FGC-102, FGC-103, ADE-101, FGC-104, FGC-106, ING-101, FGC-107, FGC-108, DMF-209, MTI-200, INF-221, FGC-109, FGC-110, MTI-300, DMF-210, MAT-241, QUI-400, INF-215, ING-103, MAT-242, ING-105, ING-104, INF-222, ING-102, TIC-408, ISW-301, INF-437, ISW-311, ISW-221, TIC-402, ISW-404, ISW-321, ISW-302, ISW-312, ISW-314, ISW-322, ISW-324, ISW-313, ISW-303, ISW-405, ISW-401, ISW-403, ISW-304, ISW-305, ISW-402, FGC-111, ISW-323, ISW-400" onclick="toggleMateria('ISW-600')">ISW-600 - PROYECTO INTEGRADOR DE SOFTWARE: TRABAJO DE GRADO (6 cr)</div>
+<!-- CUATRIMESTRE 12 -->
+<div class="cuatrimestre-title">Cuatrimestre 12</div>
+<div class="materia oculto" data-id="ISW-323" data-prerrequisito="ISW-322" onclick="toggleMateria('ISW-323')">ISW-323 - TALLER DE BASE DE DATOS III (4 cr)</div>
+<div class="materia oculto" data-id="ISW-400" data-prerrequisito="ISW-303" onclick="toggleMateria('ISW-400')">ISW-400 - INTELIGENCIA ARTIFICIAL (4 cr)</div>
+<div class="materia oculto" data-id="ISW-600" data-prerrequisito="FGC-101, FGC-102, FGC-103, ADE-101, FGC-104, FGC-106, ING-101, FGC-107, FGC-108, DMF-209, MTI-200, INF-221, FGC-109, FGC-110, MTI-300, DMF-210, MAT-241, QUI-400, INF-215, ING-103, MAT-242, ING-105, ING-104, INF-222, ING-102, TIC-408, ISW-301, INF-437, ISW-311, ISW-221, TIC-402, ISW-404, ISW-321, ISW-302, ISW-312, ISW-314, ISW-322, ISW-324, ISW-313, ISW-303, ISW-405, ISW-401, ISW-403, ISW-304, ISW-305, ISW-402, FGC-111, ISW-323, ISW-400" onclick="toggleMateria('ISW-600')">ISW-600 - PROYECTO INTEGRADOR DE SOFTWARE: TRABAJO DE GRADO (6 cr)</div>
 
 </div>
 
-<div id="creditos">Créditos acumulados: 0</div>
+<div id="creditos">
+Créditos acumulados:
+<span id="creditos-actuales">0</span>/<span id="creditos-totales">0</span>
+</div>
+
+<div id="resumen-materias">
+<div>Materias aprobadas: <span id="materias-aprobadas">0</span></div>
+<div>Materias faltantes: <span id="materias-faltantes">0</span></div>
+</div>
 
 <script>
-  function obtenerCreditos(texto) {
-    const m = texto.match(/\((\d+)\s*cr\)/);
-    return m ? parseInt(m[1], 10) : 0;
-  }
+function obtenerCreditos(texto) {
+  const m = texto.match(/\((\d+)\s*cr\)/);
+  return m ? parseInt(m[1], 10) : 0;
+}
 
-  function guardarProgreso(state) {
-    localStorage.setItem('mallaEstado', JSON.stringify(state));
-  }
+function guardarProgreso(state) {
+  localStorage.setItem('mallaEstado', JSON.stringify(state));
+}
 
-  function cargarProgreso() {
-    const data = localStorage.getItem('mallaEstado');
-    return data ? JSON.parse(data) : {};
-  }
+function cargarProgreso() {
+  return JSON.parse(localStorage.getItem('mallaEstado') || '{}');
+}
 
-  function dependientesDe(id) {
-    const materias = document.querySelectorAll('.materia');
-    return [...materias].filter(m => {
-      if (!m.dataset.prerrequisito) return false;
-      const prereqs = m.dataset.prerrequisito.split(',').map(s => s.trim());
-      return prereqs.includes(id);
-    });
-  }
+function actualizarCreditos(estado) {
+  const materias = document.querySelectorAll('.materia');
+  let actuales = 0, totales = 0, aprobadas = 0;
 
-  function desmarcarRecursivo(id, estado) {
-    const materias = document.querySelectorAll('.materia');
-    const materia = [...materias].find(m => m.dataset.id === id);
-    if (!materia) return;
-
-    materia.classList.remove('aprobada');
-    estado[id] = false;
-
-    const dependientes = dependientesDe(id);
-    dependientes.forEach(dep => {
-      if (estado[dep.dataset.id]) {
-        desmarcarRecursivo(dep.dataset.id, estado);
-      }
-      
-      dep.classList.add('oculto');
-      estado[dep.dataset.id] = false;
-    });
-  }
-
-  function actualizarVisibilidad(estado) {
-    const materias = document.querySelectorAll('.materia');
-    materias.forEach(materia => {
-      const prereq = materia.dataset.prerrequisito;
-      if (!prereq) {
-        // Sin prereqs, siempre visible
-        materia.classList.remove('oculto');
-        return;
-      }
-  
-      const prereqs = prereq.split(',').map(s => s.trim());
-      const visibles = prereqs.every(pr => estado[pr]);
-      if (visibles) {
-        materia.classList.remove('oculto');
-      } else {
-        materia.classList.add('oculto');
-        materia.classList.remove('aprobada');
-        estado[materia.dataset.id] = false;
-      }
-    });
-  }
-
-  function actualizarCreditos(estado) {
-    const materias = document.querySelectorAll('.materia');
-    let total = 0;
-    materias.forEach(materia => {
-      if (estado[materia.dataset.id]) {
-        total += obtenerCreditos(materia.textContent);
-      }
-    });
-    document.getElementById('creditos').textContent = `Créditos acumulados: ${total}`;
-  }
-
-  function toggleMateria(id) {
-    const materias = document.querySelectorAll('.materia');
-    const estado = cargarProgreso();
-
-    const materia = [...materias].find(m => m.dataset.id === id);
-    if (!materia) return;
-
-    if (materia.classList.contains('aprobada')) {
-      // Desmarcar materia y dependientes
-      desmarcarRecursivo(id, estado);
-    } else {
-      // Marcar si cumple prerequisitos
-      const prereq = materia.dataset.prerrequisito;
-      if (prereq) {
-        const prereqs = prereq.split(',').map(s => s.trim());
-        const todosCumplidos = prereqs.every(pr => estado[pr]);
-        if (!todosCumplidos) {
-          alert('No puedes aprobar esta materia antes de cumplir sus prerrequisitos.');
-          return;
-        }
-      }
-      materia.classList.add('aprobada');
-      estado[id] = true;
+  materias.forEach(m => {
+    const cr = obtenerCreditos(m.textContent);
+    totales += cr;
+    if (estado[m.dataset.id]) {
+      actuales += cr;
+      aprobadas++;
     }
-
-    actualizarVisibilidad(estado);
-    actualizarCreditos(estado);
-    guardarProgreso(estado);
-  }
-
-  window.addEventListener('load', () => {
-    const estado = cargarProgreso();
-
-    const materias = document.querySelectorAll('.materia');
-    materias.forEach(materia => {
-      if (estado[materia.dataset.id]) {
-        materia.classList.add('aprobada');
-      } else {
-        materia.classList.remove('aprobada');
-      }
-    });
-
-    actualizarVisibilidad(estado);
-    actualizarCreditos(estado);
   });
+
+  document.getElementById('creditos-actuales').textContent = actuales;
+  document.getElementById('creditos-totales').textContent = totales;
+  document.getElementById('materias-aprobadas').textContent = aprobadas;
+  document.getElementById('materias-faltantes').textContent = materias.length - aprobadas;
+}
+
+function actualizarVisibilidad(estado) {
+  document.querySelectorAll('.materia').forEach(m => {
+    if (!m.dataset.prerrequisito) {
+      m.classList.remove('oculto');
+      return;
+    }
+    const prereqs = m.dataset.prerrequisito.split(',').map(s => s.trim());
+    const visible = prereqs.every(p => estado[p]);
+    m.classList.toggle('oculto', !visible);
+    if (!visible) estado[m.dataset.id] = false;
+  });
+}
+
+function toggleMateria(id) {
+  const estado = cargarProgreso();
+  estado[id] = !estado[id];
+  document.querySelector(`[data-id="${id}"]`).classList.toggle('aprobada');
+  actualizarVisibilidad(estado);
+  actualizarCreditos(estado);
+  guardarProgreso(estado);
+}
+
+window.addEventListener('load', () => {
+  const estado = cargarProgreso();
+  document.querySelectorAll('.materia').forEach(m => {
+    if (estado[m.dataset.id]) m.classList.add('aprobada');
+  });
+  actualizarVisibilidad(estado);
+  actualizarCreditos(estado);
+});
 </script>
 
 </body>
 </html>
-
-
